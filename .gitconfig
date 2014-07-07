@@ -1,0 +1,23 @@
+[user]
+  name = Quinton Roberts
+  email = quinton@qjr.ca
+[alias]
+  co = checkout
+[core]
+  editor = vim
+[web]
+  browser = google-chrome
+[color]
+  ui = auto
+  interactive = auto
+[credential]
+  helper = osxkeychain
+[push]
+  default = simple
+[log]
+  abbrevCommit = true
+  decorate = true
+[diff]
+  algorithm = patience
+[help]
+  autocorrect = 1
