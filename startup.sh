@@ -1,24 +1,88 @@
 #!/bin/bash
 
+###
+# Set up Homebrew
+###
+
+# Install Homebrew
+if test ! $(which brew); then
+  echo "Installing homebrew..."
+  ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+fi
+
+# Update Homebrew
+brew update
+
+###
+# Update Bash (needed?)
+###
+
+# Update unix tools
+echo "Updating Bash utils"
+brew install coreutils
+brew install findutils
+brew install bash
+
+brew tap homebrew/dupes
+brew install homebrew/dupes/grep
+$PATH=$(brew --prefix coreutils)/libexec/gnubin:$PATH
+
+###
+# Install binaries
+###
+binaries=(
+  node
+  ack
+  hub
+  git
+)
+
+echo "Installing binaries..."
+brew install ${binaries[@]}
+
+# Cleanup!
+brew cleanup
+
+###
+# Install apps
+###
+brew install caskroom/cask/brew-cask
+
+apps=(
+  google-chrome
+  firefox
+  vagrant
+  iterm2
+  sublime-text3
+  virtualbox
+  skype
+  pgadmin3
+  p4merge
+  spectacle
+)
+
+echo "Installing apps..."
+brew cask install --appdir="/Applications" ${apps[@]}
+
+###
+# Set up oh-my-zsh
+###
+curl -L http://install.ohmyz.sh | sh
+
+###
+# Set up dotfiles
+###
+
 # Get currect directory
-SOURCE="${BASH_SOURCE[0]}"
-while [ -h "$SOURCE" ]; do # resolve $SOURCE until the file is no longer a symlink
-  DIR="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
-  SOURCE="$(readlink "$SOURCE")"
-  [[ $SOURCE != /* ]] && SOURCE="$DIR/$SOURCE" # if $SOURCE was a relative symlink, we need to resolve it relative to the path where the symlink file was located
-done
-DIR="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
+dirname=$(dirname $0)
 
-HOME_FILES=( ".gitconfig" ".zshrc" ".vimrc" ".vim" )
+dotfiles=(
+  ".gitconfig"
+  ".zshrc"
+  ".vimrc"
+  ".vim"
+)
 
-for f in "${HOME_FILES[@]}"
-do
-  TARGET="$HOME/$f"
-
-  if [ -e "$TARGET" ]; then
-    rm -r $TARGET
-  fi
-
-  ln -s "$DIR/$f" $HOME
-done
+echo "Setting up dotfiles..."
+ln -s $dirname/{${apps[@]}} $HOME/
 
