@@ -61,6 +61,9 @@ apps=(
   spectacle
 )
 
+echo "Tapping beta versions..."
+brew tap caskroom/versions
+
 echo "Installing apps..."
 brew cask install --appdir="/Applications" ${apps[@]}
 
