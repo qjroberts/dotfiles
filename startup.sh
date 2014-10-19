@@ -84,5 +84,5 @@ dotfiles=(
 )
 
 echo "Setting up dotfiles..."
-ln -s $dirname/{${apps[@]}} $HOME/
+ln -s $dirname/${dotfiles[@]} $HOME/
 
