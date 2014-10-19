@@ -74,7 +74,13 @@ curl -L http://install.ohmyz.sh | sh
 ###
 
 # Get currect directory
-dirname=$(dirname $0)
+source="${BASH_SOURCE[0]}"
+while [ -h "$source" ]; do
+  dirname="$( cd -P "$( dirname "$source" )" && pwd )"
+  source="$(readlink "$source")"
+  [[ $source != /* ]] && source="$dirname/$source"
+done
+dirname="$( cd -P "$( dirname "$source" )" && pwd )"
 
 dotfiles=(
   ".gitconfig"
@@ -84,5 +90,7 @@ dotfiles=(
 )
 
 echo "Setting up dotfiles..."
-ln -s $dirname/${dotfiles[@]} $HOME/
+for file in ${dotfiles[@]}; do
+  ln -sf "$dirname/$file" $HOME
+done
 
