@@ -7,7 +7,7 @@
 # Install Homebrew
 if test ! $(which brew); then
   echo "Installing homebrew..."
-  ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+  /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 fi
 
 # Update Homebrew
@@ -23,54 +23,43 @@ brew install coreutils
 brew install findutils
 brew install bash
 
-brew tap homebrew/dupes
-brew install homebrew/dupes/grep
+brew install grep --with-default-names
 $PATH=$(brew --prefix coreutils)/libexec/gnubin:$PATH
 
 ###
 # Install binaries
 ###
 binaries=(
-  node
-  ack
-  hub
   git
+  vim
 )
 
 echo "Installing binaries..."
 brew install ${binaries[@]}
 
-# Cleanup!
-brew cleanup
-
 ###
 # Install apps
 ###
-brew install caskroom/cask/brew-cask
+brew tap caskroom/cask
 
 apps=(
   google-chrome
-  firefox
-  vagrant
   iterm2
-  sublime-text3
-  virtualbox
-  skype
+  sublime-text
   pgadmin3
-  p4merge
   spectacle
 )
-
-echo "Tapping beta versions..."
-brew tap caskroom/versions
 
 echo "Installing apps..."
 brew cask install --appdir="/Applications" ${apps[@]}
 
+# Cleanup!
+brew cleanup
+
 ###
 # Set up oh-my-zsh
 ###
-curl -L http://install.ohmyz.sh | sh
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 
 ###
 # Set up dotfiles
@@ -96,4 +85,3 @@ echo "Setting up dotfiles..."
 for file in ${dotfiles[@]}; do
   ln -sf "$dirname/$file" $HOME
 done
-
