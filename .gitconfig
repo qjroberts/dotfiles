@@ -3,6 +3,7 @@
   email = quinton@qjr.ca
 [alias]
   co = checkout
+  changelog = log --pretty=format:\"- %s [%h]\" --no-merges
 [core]
   editor = vim
 [web]
@@ -19,5 +20,7 @@
   decorate = true
 [diff]
   algorithm = patience
+[diff "localizablestrings"]
+  textconv = "iconv -f utf-16 -t utf-8"
 [help]
   autocorrect = 1
