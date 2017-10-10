@@ -9,4 +9,4 @@ Some quick files to get my OS X development environment running.
 ```
 
 *****
-With inspiration from [MatthewMueller/dots](https://github.com/MatthewMueller/dots) and [Hacker's Guide to Setting up Your Mac](http://lapwinglabs.com/blog/hacker-guide-to-setting-up-your-mac)
+With inspiration from [MatthewMueller/dots](https://github.com/MatthewMueller/dots).
